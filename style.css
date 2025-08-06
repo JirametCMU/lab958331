@@ -1,0 +1,28 @@
+body {
+    background-color: #f0f2f5; /* Set a light grey background */
+}
+
+.profile-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge {
+    padding: 0.6em 1em;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    padding: 0.75rem;
+    font-weight: 600;
+}
