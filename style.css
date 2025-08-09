@@ -198,3 +198,24 @@ main { position: relative; z-index: 2; }
   pointer-events: none;
 }
 
+/* --- Mobile layout fix: อย่าให้ thumbnail/ชื่อเกมทับการ์ด --- */
+@media (max-width: 576px) {
+  /* เผื่อพื้นที่ด้านล่างให้แถบ thumbnail + ชื่อเกม */
+  main { padding-bottom: 180px; }         /* ลอง 140–220 แล้วแต่ความสูงรูป */
+
+  /* เลื่อนชื่อเกมลงอีกหน่อยให้หลุดจากการ์ด */
+  .hero-bottom-title { bottom: 22vh; }
+
+  /* เลื่อนแถบ thumbnail ไปชิดขอบล่างมากขึ้น */
+  .thumb-rail { bottom: 6vh; }
+}
+
+/* ถ้าจอเตี้ย (เช่น มือถือแนวนอน) ก็เผื่อพื้นที่เพิ่มอีก */
+@media (max-height: 700px) {
+  main { padding-bottom: 200px; }
+  .hero-bottom-title { bottom: 24vh; }
+  .thumb-rail { bottom: 5vh; }
+}
+
+/* ให้การ์ดอยู่เหนือฉากหลังชัด ๆ (เผื่อบางเครื่องมี stacking แปลก) */
+.profile-card { position: relative; z-index: 4; }
