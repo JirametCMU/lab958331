@@ -11,7 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
   skillsWrap.innerHTML = skills.map(s => `<span class="badge skill">${s}</span>`).join('');
 
   yearEl.textContent = `© ${new Date().getFullYear()}`;
-  contactButton.addEventListener('click', () => contactModal.show());
+  contactButton.addEventListener('click', () => {
+  console.log('Contact button clicked at', new Date().toLocaleTimeString());
+  contactModal.show();
+});
 
   copyBtn.addEventListener('click', async () => {
     try {
@@ -21,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch {
       alert('Copy failed.');
     }
+    
   });
 
   // ---- Bootstrap Color Mode (ใช้ data-bs-theme ที่ <html>)
@@ -36,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const now = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-bs-theme', now);
     localStorage.setItem('theme', now);
+    console.log('Theme changed to', now);
+    alert(`Theme changed to ${now}`);
   });
 });
 // ===== Background carousel + thumbnails (ต่อท้ายไฟล์ ไม่ยุ่งของเดิม) =====
@@ -98,3 +104,4 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('thumbPrev').addEventListener('click', () => track.scrollBy({ left: -220, behavior: 'smooth' }));
   document.getElementById('thumbNext').addEventListener('click', () => track.scrollBy({ left:  220, behavior: 'smooth' }));
 })();
+
