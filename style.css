@@ -1,28 +1,200 @@
-body {
-    background-color: #f0f2f5; /* Set a light grey background */
+:root {
+  --card-radius: 16px;
+  --bg: #f0f2f5;            /* light */
+  --muted: #6c757d;
 }
 
+/* เมื่อเป็นโหมดมืดด้วย Bootstrap */
+[data-bs-theme="dark"] {
+  --bg: #0b0f14;            /* dark */
+  --muted: #9aa4b2;
+}
+
+/* ให้พื้นหลังครอบคลุมทั้งหน้าเสมอ */
+html, body {
+  min-height: 100%;
+  background-color: var(--bg);
+}
+
+/* ของเดิม */
 .profile-card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+  width: 22rem;
+  border: none;
+  border-radius: var(--card-radius);
+  overflow: hidden;
 }
 
-.profile-card img {
-    width: 120px;
-    height: 120px;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.profile-avatar {
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
-.badge {
-    padding: 0.6em 1em;
-    font-size: 0.85rem;
-    font-weight: 500;
+.online-dot {
+  position: absolute;
+  right: 6px;
+  bottom: 18px;
+  width: 12px;
+  height: 12px;
+  background: #22c55e; /* green */
+  border: 2px solid #fff;
+  border-radius: 50%;
 }
 
-.btn-primary {
-    padding: 0.75rem;
-    font-weight: 600;
+.badge.skill {
+  padding: .55em .9em;
+  font-size: .85rem;
+  font-weight: 600;
+  background: #f8f9fa;
+  color: #212529;
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 999px;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
+.badge.skill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+/* ปรับสีในโหมดมืด */
+[data-bs-theme="dark"] .card {
+  background-color: #0f1720;
+  color: #e5e7eb;
+  border-color: rgba(255,255,255,.1);
+}
+[data-bs-theme="dark"] .text-muted {
+  color: var(--muted) !important;
+}
+[data-bs-theme="dark"] .badge.skill {
+  background: #111827;
+  color: #e5e7eb;
+  border-color: rgba(255,255,255,.06);
+}
+[data-bs-theme="dark"] .modal-content {
+  background-color: #0f1720;
+  color: #e5e7eb;
+}
+/* ===== Hero background carousel (ไม่ทับของเดิม) ===== */
+.hero-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* การ์ดโปรไฟล์จะอยู่ชั้นบนกว่า */
+}
+
+#bgCarousel, #bgCarousel .carousel-inner, #bgCarousel .carousel-item { height: 100vh; }
+
+.bg-slide {
+  position: absolute; inset: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: translateZ(0);
+}
+
+/* ปุ่มลูกศร */
+.hero-control {
+  top: 50%; transform: translateY(-50%);
+  width: auto; height: auto; padding: .25rem .5rem;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px; line-height: 1;
+}
+.hero-control:hover { background: rgba(0,0,0,.5); }
+.carousel-control-prev .bi, .carousel-control-next .bi { font-size: 1.6rem; }
+
+/* หัวข้อด้านบน */
+.hero-top {
+  position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+  padding: .35rem .75rem; border-radius: 999px;
+  backdrop-filter: blur(6px);
+  background: color-mix(in oklab, #000 30%, transparent);
+  color: #fff;
+}
+
+/* ชื่อเกมกลางล่าง (ไม่ติดขอบ) */
+.hero-bottom-title {
+  position: absolute; left: 50%; bottom: 12vh; transform: translateX(-50%);
+  font-size: clamp(1.25rem, 3.6vw, 2.25rem); font-weight: 700; color: #fff; text-align: center;
+  padding: .6rem 1rem; border-radius: .8rem; line-height: 1.2;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55));
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+/* แถบรูปย่อ */
+.thumb-rail {
+  position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%);
+  display: flex; align-items: center; gap: .5rem;
+  padding: .4rem .6rem; border-radius: 999px;
+  background: color-mix(in oklab, #000 45%, transparent);
+  backdrop-filter: blur(6px);
+}
+.thumb-track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 92px; gap: .45rem;
+  max-width: min(72vw, 720px); overflow-x: auto; scrollbar-width: none;
+}
+.thumb-track::-webkit-scrollbar { display: none; }
+.thumb {
+  width: 92px; height: 56px; border-radius: 14px; overflow: hidden;
+  border: 2px solid transparent; background: #111; cursor: pointer;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb.active { border-color: #ffe082; box-shadow: 0 0 0 2px rgba(0,0,0,.35); }
+
+/* ปุ่มเลื่อนแถบรูปย่อ */
+.thumb-scroll { border-radius: 999px; backdrop-filter: blur(4px); }
+
+/* โอเวอร์เลย์ไล่เฉดให้อ่านง่าย */
+.hero-overlay-top, .hero-overlay-bottom { position: absolute; left: 0; right: 0; pointer-events: none; }
+.hero-overlay-top { top: 0; height: 20vh; background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0)); }
+.hero-overlay-bottom { bottom: 0; height: 40vh; background: linear-gradient(0deg, rgba(0,0,0,.65), rgba(0,0,0,0)); }
+
+/* ให้คอนเทนต์อื่น ๆ อยู่เหนือพื้นหลังแน่นอน */
+main { position: relative; z-index: 2; }
+
+/* เล็กลงบนมือถือ */
+@media (max-width: 576px) {
+  .thumb-track { grid-auto-columns: 72px; max-width: 86vw; }
+  .thumb { width: 72px; height: 44px; border-radius: 12px; }
+}
+
+/* จัดลำดับเลเยอร์ให้ thumbnail/ชื่อเกม ไม่ถูกสไลด์ทับตอนเฟด */
+#bgCarousel { position: relative; }
+
+/* สไลด์พื้นหลัง -> ชั้นล่าง */
+#bgCarousel .carousel-item { z-index: 0; }
+#bgCarousel .bg-slide { z-index: 0; }
+
+/* UI ของฮีโร่ (อยู่บนสไลด์ แต่ยังต่ำกว่าการ์ดที่ z-index:2) */
+.hero-top,
+.hero-bottom-title,
+.thumb-rail,
+.hero-overlay-top,
+.hero-overlay-bottom {
+  position: absolute;  /* เผื่อบางตัวไม่มี */
+  z-index: 1;
+}
+
+/* ปุ่มลูกศร ให้อยู่บนสุดในส่วนของฮีโร่ เพื่อกดได้เสมอ */
+#bgCarousel .carousel-control-prev,
+#bgCarousel .carousel-control-next {
+  z-index: 2;
+}
+
+/* --- Fix: make thumbnail rail & game title clickable above <main> --- */
+.thumb-rail,
+.hero-bottom-title {
+  z-index: 3;           /* สูงกว่า main (ที่ z-index:2) */
+}
+
+.thumb-scroll {         /* ปุ่มเล็กซ้าย/ขวาในราง */
+  position: relative;
+  z-index: 4;           /* สูงกว่า thumb อื่น ๆ ในราง */
+  pointer-events: auto; /* เผื่อมี style ไหนไปปิดไว้ */
+}
+
+/* เผื่อเคยเซ็ตไว้รวมกับ UI อื่น ๆ ให้แน่ใจว่า overlay ไม่บังคลิก */
+.hero-overlay-top,
+.hero-overlay-bottom {
+  pointer-events: none;
+}
+

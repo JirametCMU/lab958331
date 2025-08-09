@@ -1,46 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Card</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile Card — Jiramet Saeteng</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <!-- HERO BACKGROUND (อยู่หลังสุดของหน้า) -->
+<section id="hero" class="hero-wrapper">
+  <div id="bgCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000">
+    <div class="carousel-inner"><!-- สไลด์จะถูกใส่ด้วย JS --></div>
 
-    <div class="container mt-5 d-flex justify-content-center">
-        <div class="card profile-card" style="width: 22rem;">
-            <div class="card-body text-center">
-                
-                <img src="Images/myprofile.jpg" class="rounded-circle mb-3" alt="Profile Picture">
+    <!-- ปุ่มลูกศร -->
+    <button class="carousel-control-prev hero-control" type="button" data-bs-target="#bgCarousel" data-bs-slide="prev" aria-label="Previous">
+      <span class="bi bi-chevron-left" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next hero-control" type="button" data-bs-target="#bgCarousel" data-bs-slide="next" aria-label="Next">
+      <span class="bi bi-chevron-right" aria-hidden="true"></span>
+    </button>
 
-                <h3 class="card-title mb-1">Jiramet Saeteng</h3>
-                <h6 class="card-title mb-3">Game Developer</h6>
-
-                <div class="mb-4">
-                    <h6 class="text-uppercase text-muted small">Education</h6>
-                    <p class="mb-0">B.Sc. Computer Science</p>
-                </div>
-
-                <div class="mb-4">
-                    <h6 class="text-uppercase text-muted small">Skills</h6>
-                    <div class="d-flex flex-wrap justify-content-center">
-                        <span class="badge bg-light text-dark m-1">Cshap</span>
-                        <span class="badge bg-light text-dark m-1">Cpp</span>
-                        <span class="badge bg-light text-dark m-1">Python</span>
-                        <span class="badge bg-light text-dark m-1">Unity</span>
-                        <span class="badge bg-light text-dark m-1">Unreal Engine</span>
-                    </div>
-                </div>
-
-                <button id="viewContactBtn" class="btn btn-primary w-100">View Contact</button>
-
-            </div>
-        </div>
+    <!-- ข้อความบนสุด -->
+    <div class="hero-top">
+      <h1 class="display-6 fw-semibold m-0">Portfolio</h1>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <!-- ชื่อเกมใหญ่ตรงกลางล่าง -->
+    <div class="hero-bottom-title" id="gameTitle">—</div>
+
+    <!-- แถบรูปย่อ -->
+    <div class="thumb-rail">
+      <button class="thumb-scroll btn btn-sm btn-dark-subtle me-2" id="thumbPrev" aria-label="Scroll thumbnails left">
+        <i class="bi bi-arrow-left-short"></i>
+      </button>
+      <div class="thumb-track" id="thumbTrack" role="tablist" aria-label="Background thumbnails"></div>
+      <button class="thumb-scroll btn btn-sm btn-dark-subtle ms-2" id="thumbNext" aria-label="Scroll thumbnails right">
+        <i class="bi bi-arrow-right-short"></i>
+      </button>
+    </div>
+
+    <!-- Overlay ช่วยให้อ่านชัด -->
+    <div class="hero-overlay-top"></div>
+    <div class="hero-overlay-bottom"></div>
+  </div>
+</section>
+
+  <main class="container py-5 d-flex justify-content-center">
+    <article class="card profile-card shadow-sm">
+      <div class="card-body text-center p-4">
+        <div class="position-relative d-inline-block">
+          <img
+            src="Images/myprofile.jpg"
+            class="rounded-circle mb-3 profile-avatar"
+            alt="Profile picture of Jiramet Saeteng"
+            loading="lazy"
+            width="120" height="120"
+          />
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+
+        <h3 class="card-title mb-1">Jiramet Saeteng</h3>
+        <p class="text-muted mb-3">Game Developer</p>
+
+        <section class="mb-4">
+          <h6 class="text-uppercase text-muted small mb-1">Education</h6>
+          <p class="mb-0">ChiangMai University, CAMT, DG</p>
+        </section>
+
+        <section class="mb-4">
+          <h6 class="text-uppercase text-muted small mb-2">Skills</h6>
+          <div id="skills" class="d-flex flex-wrap justify-content-center gap-2">
+            <!-- filled by JS for easy editing -->
+          </div>
+        </section>
+
+        <div class="d-grid gap-2">
+          <button id="viewContactBtn" class="btn btn-primary">
+            <i class="bi bi-person-lines-fill me-1"></i> View Contact
+          </button>
+          <button id="themeToggle" class="btn btn-outline-secondary">
+            <i class="bi bi-moon-stars me-1"></i> Toggle Dark/Light Mode
+          </button>
+        </div>
+      </div>
+      <footer class="card-footer text-center small text-muted">
+        <span id="year"></span> • Built with Bootstrap 5
+      </footer>
+    </article>
+  </main>
+
+  <!-- Contact Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactModalLabel"><i class="bi bi-envelope-at me-2"></i>Contact Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled mb-0">
+            <li class="mb-3 d-flex align-items-center">
+              <i class="bi bi-envelope me-2"></i>
+              <a id="emailLink" href="mailto:jiramet_s@cmu.ac.th">jiramet_s@cmu.ac.th</a>
+              <button class="btn btn-sm btn-outline-secondary ms-2" id="copyEmail">
+                <i class="bi bi-clipboard"></i>
+              </button>
+            </li>
+            <li class="mb-3 d-flex align-items-center">
+              <i class="bi bi-telephone me-2"></i>
+              <a href="tel:+66123456789">+66 12-345-6789</a>
+            </li>
+            <li class="d-flex align-items-center">
+              <i class="bi bi-geo-alt me-2"></i>
+              <a href="https://maps.google.com/?q=Chiang%20Mai%20Thailand" target="_blank" rel="noopener">
+                Chiang Mai, Thailand
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-outline-primary" href="https://www.linkedin.com/" target="_blank" rel="noopener">
+            <i class="bi bi-linkedin me-1"></i> LinkedIn
+          </a>
+          <a class="btn btn-outline-dark" href="https://github.com/" target="_blank" rel="noopener">
+            <i class="bi bi-github me-1"></i> GitHub
+          </a>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
